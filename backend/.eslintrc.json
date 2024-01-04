@@ -16,6 +16,7 @@
       "@typescript-eslint"
     ],
     "rules": {
+      "@typescript-eslint/ban-types": "off",
       "prefer-const": "off",
       "indent": [
         "error",
