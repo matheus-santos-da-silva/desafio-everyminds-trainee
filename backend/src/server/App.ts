@@ -1,5 +1,5 @@
 import express from 'express';
-
+import productRoutes from '../routes/product-routes';
 class App {
   public express: express.Application;
 
@@ -14,7 +14,7 @@ class App {
   }
 
   private routes(): void {
-
+    this.express.use('/products', productRoutes);
   }
 }
 
