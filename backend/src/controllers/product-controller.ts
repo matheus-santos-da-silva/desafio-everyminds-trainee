@@ -16,14 +16,19 @@ export class ProductController {
     const productRepository = new PrismaProductRepository();
     const createProduct = new CreateProduct(productRepository);
 
-    await createProduct.execute({
+    const result = await createProduct.execute({
       code,
       description,
       name,
       price
     });
 
-    response.status(201).json({ message: 'Product created successfully' });
+    if (result.isLeft()) {
+      response.status(result.value.statusCode).json(result.value.message);
+      return;
+    }
+
+    response.status(200).json(result.value);
     return;
   }
 
