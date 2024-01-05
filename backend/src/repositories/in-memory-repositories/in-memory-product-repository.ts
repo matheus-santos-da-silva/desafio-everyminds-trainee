@@ -23,4 +23,12 @@ export class InMemoryProductRepository implements ProductsRepository{
     this.products.push(product);
   }
 
+  async checkIfCodeExists(code: string): Promise<Product | null> {
+    
+    const product = this.products.find((product) =>  product.code === code );
+    if(!product) return null;
+  
+    return product;
+  }
+
 }
