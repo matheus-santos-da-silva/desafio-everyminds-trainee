@@ -12,6 +12,7 @@ describe('Create-Products use case', () => {
     const sut = new CreateProduct(productRepository);
 
     await sut.execute({
+      id: '1',
       code: '1',
       description: 'product-test',
       name: 'team-shirt',
@@ -27,6 +28,7 @@ describe('Create-Products use case', () => {
     const sut = new CreateProduct(productRepository);
 
     await sut.execute({
+      id: '2',
       code: '1',
       description: 'product-test',
       name: 'team-shirt',
@@ -34,6 +36,7 @@ describe('Create-Products use case', () => {
     });
 
     const result = await sut.execute({
+      id: '2',
       code: '1',
       description: 'product-test-2',
       name: 'team-shirt-2',

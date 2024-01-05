@@ -1,6 +1,7 @@
 import { Decimal } from '@prisma/client/runtime/library';
 
 interface ProductProps {
+  id: string
   name: string
   code: string
   description: string
@@ -10,6 +11,10 @@ interface ProductProps {
 export class Product {
 
   private props: ProductProps;
+
+  get id() {
+    return this.props.id;
+  }
 
   get name() {
     return this.props.name;

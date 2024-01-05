@@ -7,6 +7,7 @@ describe('Product Entity', () => {
   it('should be able to create new product', () => {
     
     const newProduct = new Product({
+      id: '1',
       code: '1',
       description: 'product-test',
       name: 'team-shirt',

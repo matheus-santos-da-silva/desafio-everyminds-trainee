@@ -4,6 +4,7 @@ import { RequiredParametersError } from '../errors/required-parameters-error';
 import { Either, left, right } from '../errors/either';
 
 export type CreateProductRequest = {
+  id: string
   name: string
   code: string
   description: string
@@ -22,6 +23,7 @@ export class CreateProduct {
   ) {}
 
   async execute({
+    id,
     code,
     description,
     name,
@@ -34,6 +36,7 @@ export class CreateProduct {
     }
 
     await this.productsRepository.create({
+      id,
       code,
       description,
       name,
