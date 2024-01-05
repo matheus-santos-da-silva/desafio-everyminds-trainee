@@ -1,5 +1,7 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { ProductsRepository } from '../repositories/product-repository';
+import { RequiredParametersError } from '../errors/required-parameters-error';
+import { Either, left, right } from '../errors/either';
 
 export type CreateProductRequest = {
   name: string
@@ -7,6 +9,11 @@ export type CreateProductRequest = {
   description: string
   price: Decimal
 }
+
+type CreateProductResponse = {
+  message: string
+}
+type Response = Either<RequiredParametersError, CreateProductResponse>
 
 export class CreateProduct {
 
@@ -19,7 +26,12 @@ export class CreateProduct {
     description,
     name,
     price
-  }:CreateProductRequest):Promise<void> {
+  }:CreateProductRequest):Promise<Response> {
+
+    const codeExists = await this.productsRepository.checkIfCodeExists(code);
+    if(codeExists) {
+      return left(new RequiredParametersError('Código do produto já existe, tente novamente com outro', 400));
+    }
 
     await this.productsRepository.create({
       code,
@@ -27,5 +39,7 @@ export class CreateProduct {
       name,
       price
     });
+
+    return right({ message: 'Produto criado com sucesso' });
   }
 }
