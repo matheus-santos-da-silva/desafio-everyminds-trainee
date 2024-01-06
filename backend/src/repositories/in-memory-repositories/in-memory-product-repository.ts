@@ -56,4 +56,11 @@ export class InMemoryProductRepository implements ProductsRepository{
     }
   }
 
+  async deleteProduct(id: string): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (const product of this.products) {
+      const index = this.products.findIndex((product) => product.id === id);
+      this.products.splice(index, 1);
+    }
+  }
 }

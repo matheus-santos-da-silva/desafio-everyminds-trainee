@@ -8,4 +8,5 @@ export interface ProductsRepository{
   getProducts():Promise<ProductProps[]>
   getProductById(id: string):Promise<ProductProps | null>
   editProduct(id: string, props: EditProductRequest): Promise<void>
+  deleteProduct(id: string): Promise<void>
 }
