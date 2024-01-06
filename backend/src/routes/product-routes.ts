@@ -9,6 +9,7 @@ const router = Router();
 router.post('/create', validationMiddleware(CreateProductValidation), ProductController.createProduct);
 router.get('/', ProductController.getProducts);
 router.patch('/edit/:id', validationMiddleware(EditProductValidationSchema),ProductController.editProduct);
+router.get('/:id', ProductController.getProductById);
 router.delete('/:id', ProductController.deleteProduct);
 
 export default router;

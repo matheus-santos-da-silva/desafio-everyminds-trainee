@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { GetProducts } from '../use-cases/get-products';
 import { EditProduct, EditProductRequest } from '../use-cases/edit-product';
 import { DeleteProduct } from '../use-cases/delete-product';
+import { GetProductById } from '../use-cases/get-product-by-id';
 
 export class ProductController {
 
@@ -99,6 +100,25 @@ export class ProductController {
 
     response.status(200).json(result.value);
     return;
+  }
+
+  static async getProductById(request: Request, response: Response) {
+
+    const id = request.params.id;
+
+    const productRepository = new PrismaProductRepository();
+    const getProductById = new GetProductById(productRepository);
+
+    const result = await getProductById.execute(id);
+
+    if (result.isLeft()) {
+      response.status(result.value.statusCode).json(result.value.message);
+      return;
+    }
+
+    response.status(200).json(result.value);
+    return;
+
   }
 
 }
