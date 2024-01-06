@@ -3,6 +3,7 @@ import { CreateProduct, CreateProductRequest } from '../use-cases/create-product
 import { PrismaProductRepository } from '../repositories/prisma-product-repository';
 import { randomUUID } from 'node:crypto';
 import { GetProducts } from '../use-cases/get-products';
+import { EditProduct, EditProductRequest } from '../use-cases/edit-product';
 
 export class ProductController {
 
@@ -41,6 +42,36 @@ export class ProductController {
     const getProducts = new GetProducts(productRepository);
 
     const result = await getProducts.execute();
+
+    if (result.isLeft()) {
+      response.status(result.value.statusCode).json(result.value.message);
+      return;
+    }
+
+    response.status(200).json(result.value);
+    return;
+  }
+
+  static async editProduct(request: Request<{ id: string }, {}, EditProductRequest>, response: Response) {
+    const id = request.params.id;
+  
+    const { 
+      description,
+      name,
+      price
+    } = request.body;
+
+    const productRepository = new PrismaProductRepository();
+    const editProduct = new EditProduct(productRepository);
+
+    const result = await editProduct.execute(
+      id,
+      {
+        description,
+        name,
+        price
+      }
+    );
 
     if (result.isLeft()) {
       response.status(result.value.statusCode).json(result.value.message);
