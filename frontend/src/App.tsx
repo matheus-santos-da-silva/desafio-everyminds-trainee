@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 /* Components */
@@ -24,6 +25,13 @@ function App() {
       <Footer/>
     </Router>
       
+=======
+function App() {
+  return (
+    <div className="App">
+    <h1>Nunes Sports</h1>
+    </div>
+>>>>>>> e7ff186346a472861979951e674be1489c509c26
   );
 }
 
