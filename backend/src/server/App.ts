@@ -1,5 +1,6 @@
 import express from 'express';
 import productRoutes from '../routes/product-routes';
+import cors from 'cors';
 class App {
   public express: express.Application;
 
@@ -11,6 +12,7 @@ class App {
 
   private middleware(): void {
     this.express.use(express.json());
+    this.express.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
   }
 
   private routes(): void {

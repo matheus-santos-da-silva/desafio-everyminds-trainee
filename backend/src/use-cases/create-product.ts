@@ -35,6 +35,11 @@ export class CreateProduct {
       return left(new RequiredParametersError('Código do produto já existe, tente novamente com outro', 400));
     }
 
+    const checkPrice = Number(price);
+    if(checkPrice < 2) {
+      return left(new RequiredParametersError('O preço mínimo é de R$ 2,00', 422));
+    }
+
     await this.productsRepository.create({
       id,
       code,
