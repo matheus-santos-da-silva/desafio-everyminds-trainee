@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 /* Components */
@@ -10,28 +9,24 @@ import Container from './components/layout/Container';
 import Home from './components/pages/Home';
 import CreateProduct from './components/pages/CreateProduct';
 
+/* Context */
+import { ProductProvider } from './context/ProductContext';
 
 function App() {
   return (
     <Router>
-      <Navbar/>
-      <Container >
-        <Routes>
-          <Route path='/edit' />
-          <Route path='/create'element={<CreateProduct/>}/>
-          <Route path='/'element={<Home/>}/>
-        </Routes>
-      </Container>
-      <Footer/>
+      <ProductProvider>
+        <Navbar/>
+        <Container >
+          <Routes>
+            <Route path='/edit' />
+            <Route path='/create'element={<CreateProduct/>}/>
+            <Route path='/'element={<Home/>}/>
+          </Routes>
+        </Container>
+        <Footer/>
+      </ProductProvider>
     </Router>
-      
-=======
-function App() {
-  return (
-    <div className="App">
-    <h1>Nunes Sports</h1>
-    </div>
->>>>>>> e7ff186346a472861979951e674be1489c509c26
   );
 }
 

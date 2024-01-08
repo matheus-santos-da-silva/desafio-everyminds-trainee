@@ -1,21 +1,38 @@
 import Input from '../form/Input';
+import styles from '../form/Form.module.css';
+import { useContext, useState } from 'react';
+
+import { Product } from '../../hooks/useQueries';
+
+import { ProductContext } from '../../context/ProductContext';
 
 function CreateProduct() {
 
-  function handleChange(e: unknown) {
-    console.log('');
+  const [ product, setProduct ] = useState<Product>({ name: '', price: 0, description: '' }); 
+  const createProduct = useContext(ProductContext);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    createProduct({
+      description: product.description,
+      name: product.name,
+      price: Number(product.price)
+    });
   }
 
   return (
-    <section>
-      <h1>CreateProduct</h1>
-      <form>
+    <section className={styles.form_container}>
+      <h1>Criar Produto</h1>
+      <form onSubmit={handleSubmit}>
         <Input
           text='Nome'
           name='name'
           type='text'
           placeholder='Digite o nome do produto'
-          value=''
           handleOnChange={handleChange}
         />
 
@@ -24,19 +41,16 @@ function CreateProduct() {
           name='price'
           type='number'
           placeholder='Digite o preço do produto'
-          value=''
           handleOnChange={handleChange}
         />
-
         <Input
           text='Descrição'
           name='description'
           type='text'
           placeholder='Digite a descrição do produto'
-          value=''
           handleOnChange={handleChange}
         />
-
+        <input type="submit" value="Criar Produto"/>
       </form>
     </section>
   );
