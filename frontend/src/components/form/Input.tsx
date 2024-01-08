@@ -6,7 +6,6 @@ interface InputProps {
   text: string
   name: string
   placeholder: string
-  value: string
   handleOnChange: ChangeEventHandler<HTMLInputElement>
 }
 
@@ -15,20 +14,18 @@ function Input({
   placeholder,
   text,
   type,
-  value,
   handleOnChange
 }: InputProps) {
 
   return(
-    <div>
+    <div className={styles.form_control}>
       <label htmlFor={name}>{text}</label>
       <input
         type={type}
         name={name}
         id={name} 
         placeholder={placeholder} 
-        onChange={handleOnChange}
-        value={value}/>
+        onChange={handleOnChange}/>
     </div>
   );
 
