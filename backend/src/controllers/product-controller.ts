@@ -6,13 +6,13 @@ import { GetProducts } from '../use-cases/get-products';
 import { EditProduct, EditProductRequest } from '../use-cases/edit-product';
 import { DeleteProduct } from '../use-cases/delete-product';
 import { GetProductById } from '../use-cases/get-product-by-id';
+import { generateProductCode } from '../utils/generate-product-code';
 
 export class ProductController {
 
   static async createProduct(request: Request<{}, {}, CreateProductRequest>, response: Response) {
 
     const {
-      code,
       description,
       name,
       price
@@ -23,7 +23,7 @@ export class ProductController {
 
     const result = await createProduct.execute({
       id: randomUUID(),
-      code,
+      code: generateProductCode(),
       description,
       name,
       price
