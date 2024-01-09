@@ -21,7 +21,7 @@ export default function useQueries() {
   }: Product) {
 
     let msgText = 'Produto criado com sucesso';
-    let msgType = 'sucess';
+    let msgType = 'success';
 
     try {
       const data = await api.post('/products/create', {
@@ -47,6 +47,30 @@ export default function useQueries() {
 
   }
 
-  return { createProduct };
+  async function deleteProduct(id:string) {
+    
+    let msgType = 'success';
+
+    const data = await api.delete(`/products/${id}`)
+      .then((response) => {
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+        
+        return response.data;
+      })
+      .catch((error: any) => {
+        
+        msgType = 'error';
+        return error.response.data;
+
+      });
+
+    setFlashMessage(data.message, msgType);
+
+  }
+
+  return { createProduct, deleteProduct };
 
 }
