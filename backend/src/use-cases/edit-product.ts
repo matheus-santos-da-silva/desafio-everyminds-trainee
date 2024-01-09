@@ -33,6 +33,11 @@ export class EditProduct {
       return left(new RequiredParametersError('Produto não encontrado', 404));
     }
 
+    const checkPrice = Number(price);
+    if(checkPrice < 2) {
+      return left(new RequiredParametersError('O preço mínimo é de R$ 2,00', 422));
+    }
+
     await this.productRepository.editProduct(id, {
       name,
       description,
