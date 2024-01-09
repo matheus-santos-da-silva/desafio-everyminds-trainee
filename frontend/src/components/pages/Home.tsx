@@ -3,7 +3,6 @@ import api from '../../utils/api';
 import { formatCurrency } from '../../utils/format-currency';
 import useQueries from '../../hooks/useQueries';
 
-// import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import styles from './Home.module.css';
