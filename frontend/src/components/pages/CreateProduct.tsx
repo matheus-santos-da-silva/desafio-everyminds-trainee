@@ -32,6 +32,7 @@ function CreateProduct() {
           text='Nome'
           name='name'
           type='text'
+          value=''
           placeholder='Digite o nome do produto'
           handleOnChange={handleChange}
         />
@@ -40,6 +41,7 @@ function CreateProduct() {
           text='Preço'
           name='price'
           type='number'
+          value=''
           placeholder='Digite o preço do produto'
           handleOnChange={handleChange}
         />
@@ -47,6 +49,7 @@ function CreateProduct() {
           text='Descrição'
           name='description'
           type='text'
+          value=''
           placeholder='Digite a descrição do produto'
           handleOnChange={handleChange}
         />
