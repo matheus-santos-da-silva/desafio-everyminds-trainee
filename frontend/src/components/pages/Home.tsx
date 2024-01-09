@@ -1,10 +1,72 @@
+import api from '../../utils/api';
+
+import { formatCurrency } from '../../utils/format-currency';
+import useQueries from '../../hooks/useQueries';
+
+// import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+import styles from './Home.module.css';
+import { Link } from 'react-router-dom';
+
+interface Products {
+  id: string
+  code: string
+  name: string
+  price: number
+  description: string
+}
+
 function Home() {
+
+  const [ products, setProducts ] = useState<Products[]>([]);
+  const { deleteProduct } = useQueries();
+
+  useEffect(() => {
+
+    api.get('/products/').then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
+
   return (
-    <section>
-      <h1>
-        Home
-      </h1>
-    </section>
+    <div className="product-table-container">
+      <div className={styles.product_header}>
+        <h1>Produtos</h1>
+        <Link to='/products/create'>Cadastrar Produto</Link>
+      </div>
+      {products && products.length > 0 ? (
+        <table className={styles.product_table}>
+          <thead>
+            <tr>
+              <th>Nome do Produto</th>
+              <th>Preço</th>
+              <th>Código do Produto</th>
+              <th className={styles.product_actions}>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td className='bold'>{product.name}</td>
+                <td>{formatCurrency(product.price)}</td>
+                <td>{product.code}</td>
+                <td className={ styles.actions_cell }>
+                  <Link to={`/products/edit/${product.id}`}>Editar</Link>
+                  <Link to={`/products/${product.id}`}>Detalhes</Link>
+                  <button onClick={ () => {
+                    deleteProduct(product.id);
+                  } }>Excluir</button>
+                  
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>Carregando produtos...</p>
+      )}
+    </div>
   );
 }
 
