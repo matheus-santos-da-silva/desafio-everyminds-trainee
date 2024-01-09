@@ -36,11 +36,14 @@ export default function useQueries() {
 
     } catch (error: any) {
       if(error.response.data.length > 2) {
+        msgType = 'error';
         msgText = error.response.data;
+        return;
       } else {
+        msgType = 'error';
         msgText = error.response.data[0];
+        return;
       }
-      msgType = 'error';
     }
 
     setFlashMessage(msgText, msgType);
