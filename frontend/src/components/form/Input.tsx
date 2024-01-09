@@ -14,6 +14,7 @@ function Input({
   name,
   placeholder,
   text,
+  value,
   type,
   handleOnChange
 }: InputProps) {
@@ -26,6 +27,7 @@ function Input({
         name={name}
         id={name} 
         placeholder={placeholder} 
+        value={value}
         onChange={handleOnChange}/>
     </div>
   );
