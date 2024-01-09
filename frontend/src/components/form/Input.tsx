@@ -6,6 +6,7 @@ interface InputProps {
   text: string
   name: string
   placeholder: string
+  value: string | number
   handleOnChange: ChangeEventHandler<HTMLInputElement>
 }
 
