@@ -14,7 +14,7 @@ function Navbar() {
           <Link to={'/'}>Início</Link>
         </li>
         <li>
-          <Link to={'/create'}>Criar Produto</Link>
+          <Link to={'/products/create'}>Criar Produto</Link>
         </li>
       </ul>
     </nav>
