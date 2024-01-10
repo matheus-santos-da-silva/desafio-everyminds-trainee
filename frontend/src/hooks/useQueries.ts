@@ -1,7 +1,6 @@
 import api from '../utils/api';
 
-// import { useState, useEffect } from 'react';
-// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFlashMessage from './useFlashMessages';
 
 export interface Product {
@@ -13,6 +12,7 @@ export interface Product {
 export default function useQueries() {
 
   const { setFlashMessage } = useFlashMessage();
+  const navigate = useNavigate();
 
   async function createProduct({
     description,
@@ -35,19 +35,19 @@ export default function useQueries() {
       console.log(data);
 
     } catch (error: any) {
+
       if(error.response.data.length > 2) {
         msgType = 'error';
         msgText = error.response.data;
-        return;
       } else {
         msgType = 'error';
         msgText = error.response.data[0];
-        return;
       }
+
     }
 
     setFlashMessage(msgText, msgType);
-
+    if(msgType === 'success') navigate('/');
   }
 
   async function deleteProduct(id:string) {
@@ -71,7 +71,6 @@ export default function useQueries() {
       });
 
     setFlashMessage(data.message, msgType);
-
   }
 
   return { createProduct, deleteProduct };
