@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react';
 import { useEffect, useState } from 'react';
 import styles from '../form/Form.module.css';
 import Input from '../form/Input';
@@ -6,12 +5,14 @@ import { useParams } from 'react-router-dom';
 import api from '../../utils/api';
 import { Product } from '../../hooks/useQueries';
 import useFlashMessage from '../../hooks/useFlashMessages';
+import { useNavigate } from 'react-router-dom';
 
 function EditProduct() {
 
   const { setFlashMessage } = useFlashMessage();
   const [ product, setProduct ] = useState<Product>({ name: '', price: 0 , description: ''});
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     
@@ -33,10 +34,9 @@ function EditProduct() {
 
     product.price = parseFloat(product.price);
 
-    const data = await api.patch(`/products/edit/${id}`, product)
+    await api.patch(`/products/edit/${id}`, product)
       .then((response) => {
         return response.data;
-        console.log(data);
       })
       .catch((error: any) => {
 
@@ -44,19 +44,18 @@ function EditProduct() {
 
           msgType = 'error';
           msgText = error.response.data;
-
           return;
 
         } else {
 
           msgType = 'error';
           msgText = error.response.data[0];
-
           return;
         }
       });
 
     setFlashMessage(msgText, msgType);
+    if(msgType === 'success') navigate('/');
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
