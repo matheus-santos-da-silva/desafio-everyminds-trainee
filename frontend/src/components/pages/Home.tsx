@@ -1,25 +1,17 @@
 import api from '../../utils/api';
 
 import { formatCurrency } from '../../utils/format-currency';
-import useQueries from '../../hooks/useQueries';
+import { deleteProduct } from '../../hooks/useDeleteProduct';
 
 import { useState, useEffect } from 'react';
 
 import styles from './Home.module.css';
 import { Link } from 'react-router-dom';
-
-interface Products {
-  id: string
-  code: string
-  name: string
-  price: number
-  description: string
-}
+import { Products } from './protocols/Product';
 
 function Home() {
 
   const [ products, setProducts ] = useState<Products[]>([]);
-  const { deleteProduct } = useQueries();
 
   useEffect(() => {
 

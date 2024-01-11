@@ -2,13 +2,13 @@ import Input from '../form/Input';
 import styles from '../form/Form.module.css';
 import { useContext, useState } from 'react';
 
-import { Product } from '../../hooks/useQueries';
+import { CreateProductProps } from '../../hooks/useCreateProduct';
 
 import { ProductContext } from '../../context/ProductContext';
 
 function CreateProduct() {
 
-  const [ product, setProduct ] = useState<Product>({ name: '', price: 0, description: '' }); 
+  const [ product, setProduct ] = useState<CreateProductProps>({ name: '', price: 0, description: '' }); 
   const createProduct = useContext(ProductContext);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

@@ -3,13 +3,13 @@ import api from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import useFlashMessage from './useFlashMessages';
 
-export interface Product {
+export interface CreateProductProps {
   name: string
   price: number
   description: string
 }
 
-export default function useQueries() {
+export default function useCreateProduct() {
 
   const { setFlashMessage } = useFlashMessage();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function useQueries() {
     description,
     name,
     price
-  }: Product) {
+  }: CreateProductProps) {
 
     let msgText = 'Produto criado com sucesso';
     let msgType = 'success';
@@ -50,29 +50,5 @@ export default function useQueries() {
     if(msgType === 'success') navigate('/');
   }
 
-  async function deleteProduct(id:string) {
-    
-    let msgType = 'success';
-
-    const data = await api.delete(`/products/${id}`)
-      .then((response) => {
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-        
-        return response.data;
-      })
-      .catch((error: any) => {
-        
-        msgType = 'error';
-        return error.response.data;
-
-      });
-
-    setFlashMessage(data.message, msgType);
-  }
-
-  return { createProduct, deleteProduct };
-
+  return { createProduct };
 }
