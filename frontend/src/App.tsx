@@ -13,6 +13,7 @@ import CreateProduct from './components/pages/CreateProduct';
 /* Context */
 import { ProductProvider } from './context/ProductContext';
 import EditProduct from './components/pages/EditProduct';
+import ProductDetails from './components/pages/ProductDetails';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Container >
           <Routes>
             <Route path='/products/edit/:id' element={<EditProduct/>}/>
+            <Route path='/products/:id'element={<ProductDetails/>}/>
             <Route path='/products/create'element={<CreateProduct/>}/>
             <Route path='/'element={<Home/>}/>
           </Routes>
